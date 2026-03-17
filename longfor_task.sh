@@ -76,7 +76,7 @@ build_headers() {
     fi
 
     if [ -n "$LM_TOKEN" ]; then
-        headers+=("-H" "lmToken: $LM_TOKEN")
+        headers+=("-H" "lmToken: $LM_TOKEN")https://github.com/zimplexing/longfor/blob/main/longfor_task.sh
     fi
 
     if [ -n "$X_GAIA_API_KEY" ]; then
@@ -92,16 +92,12 @@ post_request() {
     local data="$2"
     local headers=($(build_headers))
 
-    if [ "$DEBUG" = "true" ]; then
-        log_info "发送POST请求到: $url"
-        log_info "请求数据: $data"
-    fi
+    log_info "发送POST请求到: $url"
+    log_info "请求数据: $data"
 
     response=$(curl -s -w "\n%{http_code}" -X POST "${headers[@]}" -d "$data" "$url" 2>/dev/null)
 
-    if [ "$DEBUG" = "true" ]; then
-        log_info "响应内容: $response"
-    fi
+    log_info "响应内容: $response"
 
     echo "$response"
 }
@@ -116,15 +112,11 @@ get_request() {
         url="$url?$params"
     fi
 
-    if [ "$DEBUG" = "true" ]; then
-        log_info "发送GET请求到: $url"
-    fi
+    log_info "发送GET请求到: $url"
 
     response=$(curl -s -w "\n%{http_code}" -X GET "${headers[@]}" "$url" 2>/dev/null)
 
-    if [ "$DEBUG" = "true" ]; then
-        log_info "响应内容: $response"
-    fi
+    log_info "响应内容: $response"
 
     echo "$response"
 }
