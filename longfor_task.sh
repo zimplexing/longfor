@@ -201,8 +201,10 @@ signin() {
     local data='{"activity_no":"11111111111686241863606037740000"}'
 
     local response=$(post_request "$url" "$data")
+    log_info "signin requested"
     local body=$(check_response_success "$response") || return 1
-
+    log_info "signin responsed"
+    
     # 检查是否签到成功
     if echo "$body" | grep -q '"is_popup":1'; then
         local reward_num=$(extract_json_number "$body" "reward_num")
