@@ -27,7 +27,7 @@ jobs:
 
           JSON=$(jq -n --arg text "$LOG" '{
               msg_type: "text",
-              content: { text: ("📄 签到:\n" + $text) }
+              content: { text: ($text) }
             }')
 
           curl -X POST "${{ secrets.FEISHU_WEBHOOK }}" \
