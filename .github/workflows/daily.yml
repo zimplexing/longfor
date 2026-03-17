@@ -20,4 +20,16 @@ jobs:
         run: |
           chmod +x ./longfor_task.sh
           ./longfor_task.sh
+      - name: Send log to Feishu
+        run: |
+          LOG=$(cat output.log)
+
+          curl -X POST "${{ secrets.FEISHU_WEBHOOK }}" \
+          -H "Content-Type: application/json" \
+          -d "{
+            \"msg_type\": \"text\",
+            \"content\": {
+              \"text\": \"📄 执行结果:\n$LOG\"
+            }
+          }"
 
