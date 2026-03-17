@@ -25,12 +25,12 @@ jobs:
         run: |
           LOG=$(cat output.log)
 
+          JSON=$(jq -n --arg text "$LOG" '{
+              msg_type: "text",
+              content: { text: ("📄 签到:\n" + $text) }
+            }')
+
           curl -X POST "${{ secrets.FEISHU_WEBHOOK }}" \
-          -H "Content-Type: application/json" \
-          -d "{
-            \"msg_type\": \"text\",
-            \"content\": {
-              \"text\": \"📄 执行结果:\n$LOG\"
-            }
-          }"
+            -H "Content-Type: application/json" \
+            -d "$JSON"
 
