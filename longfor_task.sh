@@ -70,8 +70,6 @@ build_headers() {
     headers+=("-H" "Accept-Encoding: gzip, deflate, br")
     headers+=("-H" "Accept-Language: zh-CN,zh;q=0.9")
 
-    log_info "header: $header"
-
     # 可选但重要的headers
     if [ -n "$X_LONGZHU_SIGN" ]; then
         headers+=("-H" "X-LONGZHU-Sign: $X_LONGZHU_SIGN")
@@ -92,15 +90,10 @@ build_headers() {
 post_request() {
     local url="$1"
     local data="$2"
-
-    log_info "发送POST请求到: $url"
-    log_info "请求数据: $data"
     
     local headers=($(build_headers))
 
     response=$(curl -s -w "\n%{http_code}" -X POST "${headers[@]}" -d "$data" "$url" 2>/dev/null)
-
-    log_info "响应内容: $response"
 
     echo "$response"
 }
@@ -196,9 +189,7 @@ signin() {
     local data='{"activity_no":"11111111111686241863606037740000"}'
 
     local response=$(post_request "$url" "$data")
-    log_info "signin requested"
     local body=$(check_response_success "$response") || return 1
-    log_info "signin responsed"
     
     # 检查是否签到成功
     if echo "$body" | grep -q '"is_popup":1'; then
