@@ -19,7 +19,8 @@ jobs:
           LM_TOKEN: ${{ secrets.LM_TOKEN }}
         run: |
           chmod +x ./longfor_task.sh
-          ./longfor_task.sh
+          ./longfor_task.sh > output.log 2>&1
+          
       - name: Send log to Feishu
         run: |
           LOG=$(cat output.log)
