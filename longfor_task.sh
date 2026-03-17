@@ -70,6 +70,8 @@ build_headers() {
     headers+=("-H" "Accept-Encoding: gzip, deflate, br")
     headers+=("-H" "Accept-Language: zh-CN,zh;q=0.9")
 
+    log_info "headers_1: $headers"
+
     # 可选但重要的headers
     if [ -n "$X_LONGZHU_SIGN" ]; then
         headers+=("-H" "X-LONGZHU-Sign: $X_LONGZHU_SIGN")
@@ -82,6 +84,8 @@ build_headers() {
     if [ -n "$X_GAIA_API_KEY" ]; then
         headers+=("-H" "X-Gaia-Api-Key: $X_GAIA_API_KEY")
     fi
+
+    log_info "headers_2: $headers"
 
     echo "${headers[@]}"
 }
