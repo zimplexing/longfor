@@ -76,7 +76,7 @@ build_headers() {
     fi
 
     if [ -n "$LM_TOKEN" ]; then
-        headers+=("-H" "lmToken: $LM_TOKEN")https://github.com/zimplexing/longfor/blob/main/longfor_task.sh
+        headers+=("-H" "lmToken: $LM_TOKEN")
     fi
 
     if [ -n "$X_GAIA_API_KEY" ]; then
@@ -191,9 +191,6 @@ signin() {
 
     local url="${BASE_URL}/lmarketing-task-api-mvc-prod/openapi/task/v1/signature/clock"
     local data='{"activity_no":"11111111111686241863606037740000"}'
-
-    log_info "发送POST请求到: $url"
-    log_info "请求数据: $data"
 
     local response=$(post_request "$url" "$data")
     log_info "signin requested"
