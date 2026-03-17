@@ -1,0 +1,24 @@
+name: Daily Bash Job
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-bash:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Run bash script
+        run: |
+          chmod +x ./longfor_task.sh
+          ./longfor_task.sh
+
+
+env:
+  LM_TOKEN: ${{ secrets.LM_TOKEN }}
+  X_LONGZHU_SIGN: ${{ secrets.X_LONGZHU_SIGN }}
