@@ -70,6 +70,8 @@ build_headers() {
     headers+=("-H" "Accept-Encoding: gzip, deflate, br")
     headers+=("-H" "Accept-Language: zh-CN,zh;q=0.9")
 
+    log_info "header: $header"
+
     # 可选但重要的headers
     if [ -n "$X_LONGZHU_SIGN" ]; then
         headers+=("-H" "X-LONGZHU-Sign: $X_LONGZHU_SIGN")
@@ -90,10 +92,11 @@ build_headers() {
 post_request() {
     local url="$1"
     local data="$2"
-    local headers=($(build_headers))
 
     log_info "发送POST请求到: $url"
     log_info "请求数据: $data"
+    
+    local headers=($(build_headers))
 
     response=$(curl -s -w "\n%{http_code}" -X POST "${headers[@]}" -d "$data" "$url" 2>/dev/null)
 
