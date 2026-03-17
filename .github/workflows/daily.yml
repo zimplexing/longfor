@@ -14,11 +14,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run bash script
+        env:
+          X_LONGZHU_SIGN: ${{ secrets.X_LONGZHU_SIGN }}
+          LM_TOKEN: ${{ secrets.LM_TOKEN }}
         run: |
           chmod +x ./longfor_task.sh
           ./longfor_task.sh
 
-
-env:
-  LM_TOKEN: ${{ secrets.LM_TOKEN }}
-  X_LONGZHU_SIGN: ${{ secrets.X_LONGZHU_SIGN }}
